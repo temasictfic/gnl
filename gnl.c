@@ -6,7 +6,7 @@
 /*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 16:55:03 by sciftci           #+#    #+#             */
-/*   Updated: 2022/12/30 16:55:04 by sciftci          ###   ########.fr       */
+/*   Updated: 2022/12/30 17:14:23 by sciftci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,19 @@ char	*read_file(int fd, char *file)
 
 char	*get_next_line(int fd)
 {
-	static char	*file;
-	char		*next_line;
-	static int	start;
-	static int	afterend;
-	int			next_index;
+	static t_file	file;
+	char			*line;
+	int				next_index;
 
-	if (!file)
+	if (!file.file_str)
 	{
-		file = malloc(sizeof(char));
-		file[0] = '\0';
-		file = read_file(fd, file);
+		file.file_str = malloc(sizeof(char));
+		file.file_str[0] = '\0';
+		file.file_str = read_file(fd, file.file_str);
 	}
-	next_index = char_index(file + start, '\n');
-	afterend = start + next_index;
-	next_line = ft_substr(file, start, afterend - start);
-	start = afterend;
-	return (next_line);
+	next_index = char_index(file.file_str + file.start, '\n');
+	file.afterend = file.start + next_index;
+	line = ft_substr(file.file_str, file.start, file.afterend - file.start);
+	file.start = file.afterend;
+	return (line);
 }
