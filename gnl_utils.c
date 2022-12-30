@@ -6,7 +6,7 @@
 /*   By: sciftci <sciftci@student.42kocaeli.com.tr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 16:54:47 by sciftci           #+#    #+#             */
-/*   Updated: 2022/12/30 16:54:48 by sciftci          ###   ########.fr       */
+/*   Updated: 2022/12/30 17:03:42 by sciftci          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	ft_memcpy(joined_str, s1, s1_len);
 	ft_memcpy(joined_str + s1_len, s2, s2_len);
+	free(s1);
 	joined_str[s1_len + s2_len] = '\0';
 	return (joined_str);
 }

@@ -13,9 +13,8 @@ int	main(int argc, char **argv)
 	while (line != NULL)
 	{
 		printf("%s", line);
-		//free(line);
+		free(line);
 		line = get_next_line(fd);
 	}
-	//while(1);
 	return (0);
 }
