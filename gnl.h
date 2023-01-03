@@ -17,6 +17,10 @@
  # define BUF_SIZE 64
 #endif
 
+#ifndef FD_LIMIT
+ # define FD_LIMIT 64
+#endif
+
 # include <stdlib.h>
 # include <unistd.h>
 
