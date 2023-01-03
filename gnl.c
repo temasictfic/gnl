@@ -52,14 +52,14 @@ char	*read_file(int fd, char *file)
 
 char	*get_next_line(int fd)
 {
-	static t_file	file;
+	static char		*file;
 	char			*next_line;
 	size_t			next_index;
 
-	if (!file.file_str)
-		file.file_str = read_file(fd, file.file_str);
-	next_index = next_line_index(file.file_str + file.start_index);
-	next_line = ft_substr(file.file_str, file.start_index, next_index);
-	file.start_index += next_index;
+	if (!file)
+		file = read_file(fd, file);
+	next_index = next_line_index(file);
+	next_line = ft_substr(file, 0, next_index);
+	file += next_index;
 	return (next_line);
 }
