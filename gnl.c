@@ -32,8 +32,10 @@ char	*read_file(int fd, char *file)
 
 
 	file = malloc(sizeof(char));
-	file[0] = '\0';
 	buf = malloc(sizeof(char) * (BUF_SIZE + 1));
+	if (!buf || !file)
+		return (NULL);
+	file[0] = '\0';
 	while (1)
 	{
 		read_bytes = read(fd, buf, BUF_SIZE);
@@ -56,6 +58,8 @@ char	*get_next_line(int fd)
 	char			*next_line;
 	size_t			next_index;
 
+	if (fd < 0 || BUF_SIZE <= 0 || FD_LIMIT <= 0)
+		return (NULL);
 	if (!file[fd])
 		file[fd] = read_file(fd, file[fd]);
 	next_index = next_line_index(file[fd]);
