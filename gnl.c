@@ -12,7 +12,7 @@
 
 #include "gnl.h"
 
-int	next_line_index(char *str)
+size_t	next_line_index(char *str)
 {
 	size_t	i;
 
@@ -28,7 +28,6 @@ int	next_line_index(char *str)
 char	*read_file(int fd, char *file)
 {
 	ssize_t	read_bytes;
-	int		new_line_index;
 	char	*buf;
 
 
@@ -55,12 +54,12 @@ char	*get_next_line(int fd)
 {
 	static t_file	file;
 	char			*next_line;
-	int				next_index;
+	size_t			next_index;
 
 	if (!file.file_str)
 		file.file_str = read_file(fd, file.file_str);
-	next_index = next_line_index(file.file_str + file.start);
-	next_line = ft_substr(file.file_str, file.start, next_index);
-	file.start = file.start + next_index;
+	next_index = next_line_index(file.file_str + file.start_index);
+	next_line = ft_substr(file.file_str, file.start_index, next_index);
+	file.start_index += next_index;
 	return (next_line);
 }

@@ -23,7 +23,7 @@
 typedef struct s_file
 {
 	char	*file_str;
-	int		start;
+	size_t	start_index;
 }			t_file;
 
 size_t		ft_strlen(const char *s);
