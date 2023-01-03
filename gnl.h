@@ -12,7 +12,11 @@
 
 #ifndef GNL_H
 # define GNL_H
-# define BUF_SIZE 10
+
+#ifndef BUF_SIZE
+ # define BUF_SIZE 64
+#endif
+
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -20,12 +24,10 @@ typedef struct s_file
 {
 	char	*file_str;
 	int		start;
-	int		afterend;
 }			t_file;
 
 size_t		ft_strlen(const char *s);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
-size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char *s1, char *s2);
 char		*get_next_line(int fd);

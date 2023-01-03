@@ -31,17 +31,19 @@ char	*read_file(int fd, char *file)
 	int		new_line_index;
 	char	*buf;
 
+
+	file = malloc(sizeof(char));
+	file[0] = '\0';
 	buf = malloc(sizeof(char) * (BUF_SIZE + 1));
 	while (1)
 	{
 		read_bytes = read(fd, buf, BUF_SIZE);
-		if (read_bytes == -1)
+		if (read_bytes <= 0)
 		{
-			free(buf);
-			return (NULL);
-		}
-		else if (read_bytes == 0)
+			if (read_bytes == -1)
+				file = NULL;
 			break ;
+		}
 		buf[read_bytes] = '\0';
 		file = ft_strjoin(file, buf);
 	}
@@ -56,14 +58,9 @@ char	*get_next_line(int fd)
 	int				next_index;
 
 	if (!file.file_str)
-	{
-		file.file_str = malloc(sizeof(char));
-		file.file_str[0] = '\0';
 		file.file_str = read_file(fd, file.file_str);
-	}
 	next_index = char_index(file.file_str + file.start, '\n');
-	file.afterend = file.start + next_index;
-	line = ft_substr(file.file_str, file.start, file.afterend - file.start);
-	file.start = file.afterend;
+	line = ft_substr(file.file_str, file.start, next_index);
+	file.start = file.start + next_index;
 	return (line);
 }

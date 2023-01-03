@@ -28,32 +28,10 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 
 	if (dst == NULL && src == NULL)
 		return (NULL);
-	i = 0;
-	while (i < n)
-	{
+	i = -1;
+	while (++i < n)
 		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		i++;
-	}
 	return (dst);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t	index;
-
-	index = 0;
-	if (size > 0)
-	{
-		while (index < (size - 1) && src[index])
-		{
-			dst[index] = src[index];
-			index++;
-		}
-		dst[index] = '\0';
-	}
-	while (src[index])
-		index++;
-	return (index);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -64,22 +42,13 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!s || !len)
 		return (NULL);
 	src_len = ft_strlen(s);
-	if (start >= src_len)
-	{
-		substr = malloc(sizeof(char));
-		if (!substr)
-			return (NULL);
-		*substr = '\0';
-	}
-	else
-	{
-		if ((src_len - start) < len)
-			len = src_len - start;
-		substr = malloc(sizeof(char) * (len + 1));
-		if (!substr)
-			return (NULL);
-		ft_strlcpy(substr, (char *)(s + start), len + 1);
-	}
+	if ((src_len - start) < len)
+		len = (src_len - start) * !(start >= src_len);
+	substr = malloc(sizeof(char) * (len + 1));
+	if (!substr)
+		return (NULL);
+	ft_memcpy(substr, (char *)(s + start), len);
+	substr[len] = '\0';
 	return (substr);
 }
 
